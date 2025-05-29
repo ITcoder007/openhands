@@ -19,6 +19,13 @@ spring:
     date-format: "yyyy-MM-dd HH:mm:ss"
     time-zone: "Asia/Shanghai"
     default-property-inclusion: non_null
+    
+  # 定时任务配置
+  task:
+    scheduling:
+      pool:
+        size: 2
+      thread-name-prefix: cert-task-
 
 # MyBatis Plus 配置
 mybatis-plus:
@@ -52,10 +59,6 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
 
-# 定时任务配置
-spring:
-  task:
-    scheduling:
-      pool:
-        size: 2
-      thread-name-prefix: cert-task-
+# 证书管理配置
+cert:
+  expiring-soon-days: 30  # 即将过期天数阈值

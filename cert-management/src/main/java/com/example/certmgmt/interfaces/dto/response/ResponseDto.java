@@ -89,6 +89,18 @@ public class ResponseDto<T> {
     public static <T> ResponseDto<T> failure(String message) {
         return new ResponseDto<>(400, message, null);
     }
+    
+    /**
+     * 错误响应（默认400错误码）
+     * 
+     * @param message 错误消息
+     * @return 响应对象
+     */
+    public static <T> ResponseDto<T> error(String message) {
+        return new ResponseDto<>(400, message, null);
+    }
+    
+
 
     // Getter and Setter methods
     public int getCode() {

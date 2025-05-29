@@ -105,6 +105,16 @@ public class Certificate {
      * @return 证书状态
      */
     public CertStatus calculateStatus() {
+        return calculateStatus(30);
+    }
+    
+    /**
+     * 计算证书状态
+     * 
+     * @param expiringSoonDays 即将过期天数阈值
+     * @return 证书状态
+     */
+    public CertStatus calculateStatus(int expiringSoonDays) {
         if (expirationDate == null) {
             return CertStatus.NORMAL;
         }
@@ -117,8 +127,8 @@ public class Certificate {
             return CertStatus.EXPIRED;
         }
 
-        // 30天内过期视为即将过期
-        LocalDate warnDate = expirationLocalDate.minusDays(30);
+        // 指定天数内过期视为即将过期
+        LocalDate warnDate = expirationLocalDate.minusDays(expiringSoonDays);
         if (today.isAfter(warnDate) || today.isEqual(warnDate)) {
             return CertStatus.EXPIRING_SOON;
         }
