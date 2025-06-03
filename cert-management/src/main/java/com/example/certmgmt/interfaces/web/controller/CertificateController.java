@@ -116,6 +116,29 @@ public class CertificateController {
     }
     
     /**
+     * 获取即将过期的证书列表
+     */
+    @GetMapping("/expiring")
+    @Operation(summary = "获取即将过期的证书", description = "获取指定天数内即将过期的证书列表")
+    public ResponseEntity<ResponseDto<List<CertificateResponse>>> getExpiringSoonCertificates(
+            @Parameter(description = "天数，默认30天") @RequestParam(defaultValue = "30") int days) {
+        
+        List<CertificateResponse> certificates = certificateApplicationService.getExpiringSoonCertificates(days);
+        return ResponseEntity.ok(ResponseDto.success(certificates));
+    }
+    
+    /**
+     * 获取已过期的证书列表
+     */
+    @GetMapping("/expired")
+    @Operation(summary = "获取已过期的证书", description = "获取所有已过期的证书列表")
+    public ResponseEntity<ResponseDto<List<CertificateResponse>>> getExpiredCertificates() {
+        
+        List<CertificateResponse> certificates = certificateApplicationService.getExpiredCertificates();
+        return ResponseEntity.ok(ResponseDto.success(certificates));
+    }
+    
+    /**
      * 更新证书
      */
     @PutMapping("/{id}")

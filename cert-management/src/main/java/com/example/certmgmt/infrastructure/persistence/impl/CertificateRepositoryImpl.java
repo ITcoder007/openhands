@@ -60,7 +60,7 @@ public class CertificateRepositoryImpl implements CertificateRepository {
     
     @Override
     public List<Certificate> findByStatus(CertStatus status) {
-        return certificateMapper.findByStatus(status.name());
+        return certificateMapper.findByStatus(status.getCode());
     }
     
     @Override
@@ -95,12 +95,12 @@ public class CertificateRepositoryImpl implements CertificateRepository {
         if (ids == null || ids.isEmpty()) {
             return 0;
         }
-        return certificateMapper.batchUpdateStatus(ids, status.name());
+        return certificateMapper.batchUpdateStatus(ids, status.getCode());
     }
     
     @Override
     public long countByStatus(CertStatus status) {
-        return certificateMapper.countByStatus(status.name());
+        return certificateMapper.countByStatus(status.getCode());
     }
     
     @Override

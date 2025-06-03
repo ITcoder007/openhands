@@ -109,6 +109,28 @@ public class CertificateApplicationService {
     }
     
     /**
+     * 获取即将过期的证书列表
+     */
+    @Transactional(readOnly = true)
+    public List<CertificateResponse> getExpiringSoonCertificates(int days) {
+        List<Certificate> certificates = certificateRepository.findExpiringSoon(days);
+        return certificates.stream()
+                .map(certificateAssembler::toResponse)
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * 获取已过期的证书列表
+     */
+    @Transactional(readOnly = true)
+    public List<CertificateResponse> getExpiredCertificates() {
+        List<Certificate> certificates = certificateRepository.findExpired();
+        return certificates.stream()
+                .map(certificateAssembler::toResponse)
+                .collect(Collectors.toList());
+    }
+    
+    /**
      * 更新证书
      */
     public CertificateResponse updateCertificate(Long id, CertificateUpdateRequest request) {
